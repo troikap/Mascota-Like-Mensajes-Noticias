@@ -1,0 +1,19 @@
+Mensajes:
+<div class="container chat-container">
+    <div *ngFor="let mensaje of mensajes" [ngStyle]="{'background-color': usuarioLogueado?.name == mensaje.fromUserName ? '#DCF8C6' : '#FFFFFF'}" class="well well-sm mensaje">
+        <span>
+        <h6>{{mensaje.fromUserName}}:</h6> <!--to {{mensaje.target}}--> 
+        {{mensaje.mensaje}} <br>
+        <span class="text-muted">{{mensaje.created | date:'short'}}</span>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="deleteMessage(mensaje)" *ngIf="usuarioLogueado?.name == mensaje.fromUserName">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </span>
+    </div>
+    <div *ngIf="mensajes?.length == 0">Aún no hay mensajes</div>
+</div>
+<hr>
+<textarea rows="4" cols="100" [(ngModel)]="nuevoMensaje" *ngIf="conversacion" (keyup.enter)="enviarMensaje()" placeholder="Escribe un mensaje...">
+</textarea>
+<!--<input type="text" [(ngModel)]="nuevoMensaje" *ngIf="conversacion" (keyup.enter)="enviarMensaje()">
+<button (click)="enviarMensaje()" *ngIf="conversacion">Enviar</button>-->

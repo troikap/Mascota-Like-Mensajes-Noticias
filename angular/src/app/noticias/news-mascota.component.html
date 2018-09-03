@@ -1,0 +1,92 @@
+<div class="total"  style="background-color: rgb(226, 226, 227);">
+<div class="container" >
+    <form #f="ngForm" novalidate>
+        <h1>Muro de Noticias</h1>
+        <div>
+            <label>Subi la tuya por aca:</label>
+            <input type="file" class="form-control-file" multiple (change)="fileChange(input)" #input />
+        </div>
+        <div class="clearfix"></div>
+        <br/>
+        <div *ngIf="mascota.imagen">
+            <img  class="img-fluid img-thumbnail" style="width: 50%; height: auto;" src="{{mascota.imagen}}" />
+        </div>
+        <br>
+        <div class="clearfix"></div>
+        <div class="form-group col-sm-8">
+            <label>Comenta algo en tu foto:</label>
+            <textarea type="text-" class="form-control" name="description" [(ngModel)]="mascota.description" required [minlength]="3" ></textarea>
+        </div>
+        <div class="clearfix"></div>
+        <button class="btn btn-success" (click)="submitForm()" [disabled]="f.invalid">Publicar</button>
+    </form>
+</div>
+<div class="container">
+    <div *ngFor="let mascota of mascotas" class="panel panel-default" style="width: 80%;">
+        <div  class="panel-body " style="background-color:rgb(183, 180, 175);">   
+            <img  class="img-circle"  style="width: 8%; margin-bottom: 15px;" src="{{mascota.picture}}" />
+            <strong style= "font-size: 20px;">{{mascota.name  ? mascota.name : 'Anonimo'  }} </strong>
+            <br>
+            <div class="clearfix"></div> 
+            <div class="col-sm-9 text-center">
+                <div>
+                    <img  class="img-fluid img-thumbnail" style="width: 84%; height: auto; border-color: salmon; border-width: 10px; " src="{{mascota.imagen}}" />
+                </div>
+            </div>
+            <div class="col-sm-3 text-left">
+                <h2 style="size: 50px; padding-left: 0px; padding-right:  0px;"> {{mascota.description}}</h2>
+            </div>
+            <div class="clearfix"></div>
+            <br>
+            <hr> 
+            <div *ngIf="mascota.comentarios.length != 0">
+                <div *ngIf="!mascota.showComentario">
+                    <span > 
+                        <i class="btn" style="cursor:pointer; color:rgb(16, 96, 175); font-size: 14px" aria-hidden="true" (click)="showComentario(mascota)">Mostrar comentarios</i>
+                    </span>
+                </div>
+                <div *ngIf="mascota.showComentario">
+                    <span > 
+                        <i class="btn"  style="cursor:pointer; color: green" aria-hidden="true" (click)="hidenComentario(mascota)">Ocular comentarios</i>
+                    </span>
+                    <br>
+                </div>
+            </div>
+            <div *ngFor="let comentario of mascota.comentarios">
+                <div *ngIf="mascota.showComentario">
+                    <div class="clearfix"></div>
+                    <div class="col-sm-2 text-right">
+                        <img  class="img-circle"  style="width: 30px; max-width: 70%; padding-top: 10%" src="{{comentario.imagen}}" />
+                    </div>
+                    <div class="col-sm-9 text-left">
+                        <div class="panel panel-default"  style="width: 80%; height: auto;">
+                            <div class="panel-body" >
+                                <strong> {{comentario.name}} </strong>
+                                {{comentario.description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <form #g="ngForm" id={{mascota._id}} novalidate>
+                <div class="col-sm-2"></div>
+                <div class="form-group col-sm-9 text-center ">
+                    <textarea #item  style="width: 80%; height: auto;" id="comentario-{{mascota._id}}"  name="description" class="form-control"  placeholder="Agregar comentario..."></textarea>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-7 text-right">
+                    <button class="btn btn-success" (click)="guardarComentario(mascota, item.value)"  [disabled]="g.invalid">Comentar</button>
+                    <div *ngIf="mascota.alerta">
+                    <br>
+                    <div class="alert alert-warning text-left" role="alert">
+                        <strong>Cuidado! </strong>Debe ingresar un comentario
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button class="btn btn-default" [routerLink]="['/']" style=" background-color: rgb(180, 167, 133)">Volver</button>
+</div>
+</div>

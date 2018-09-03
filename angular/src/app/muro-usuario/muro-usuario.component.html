@@ -1,0 +1,7 @@
+
+<ul class="list-group">
+  <li *ngFor= "let usuario of usuarios" class="list-group-item">
+    <a href="" [routerLink]="['/muro-usuario/' + usuario._id ]">{{usuario.name}}</a>
+    
+  </li>
+</ul>

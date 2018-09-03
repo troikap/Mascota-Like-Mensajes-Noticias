@@ -1,0 +1,15 @@
+<ul class="list-group">
+  <li>
+      
+  </li>
+</ul>
+
+
+<li *ngFor= "let mascota of mascotas" class="list-group-item">
+    <div class="list-group">
+        <div class="list-group-item list-group-item-info">{{mascota.name}}</div>
+        <div></div>
+        <Button (click)="submitLike(mascota._id)">Like</Button>
+        <div class="list-group-item"><vista-mascota [mascota]="mascota"></vista-mascota></div>
+    </div>
+</li>
