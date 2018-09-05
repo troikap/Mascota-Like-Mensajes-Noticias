@@ -16,12 +16,12 @@ export class MascotaUsuarioService extends RestBaseService {
     super();
   }
 
-  buscarLikePorMascota(id: string): Promise<Mascota[]> {
+  buscarLikePorMascota(id: string): Promise<Like[]> {
     return this.http
       .get(MascotaUsuarioService.serverUrl + this.urls + "/" + id, this.getRestHeader())
       .toPromise()
       .then(response => {
-        return response.json() as Mascota[];
+        return response.json() as Like[];
         // return response.json() as Like[];
       })
       .catch(this.handleError);

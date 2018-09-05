@@ -151,5 +151,7 @@ export interface Mascota {
   image: string;
   imageBlob: Image;
   cantidadLike: number;
+  encadenarLike: String;
+  showLikes: false;
 }
 

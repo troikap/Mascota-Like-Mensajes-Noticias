@@ -20,8 +20,6 @@
                 <td>{{mascota.name}}</td>
                 <td>{{mascota.description}}</td>
                 <td class="text">
-                        
-
                     <img src="/assets/like.png" name="like"  />
                     <strong style=" padding-top: 5px;">{{mascota.cantidadLike}}</strong> 
                     <form #g="ngForm" id={{mascota._id}} novalidate>
@@ -36,6 +34,26 @@
                             </div>
                         </div>
                     </form>
+                </td>
+                <td>
+                    <div *ngIf="!mascota.showLikes">
+                        <span > 
+                            <i class="btn" style="cursor:pointer; color:rgb(16, 96, 175); font-size: 14px" aria-hidden="true" (click)="showLike(mascota)">Mostrar Like</i>
+                        </span>
+                    </div>
+                    <div *ngIf="mascota.showLikes">
+                        <span > 
+                            <i class="btn"  style="cursor:pointer; color: green" aria-hidden="true" (click)="hidenLike(mascota)">Ocular Likes</i>
+                        </span>
+                        <br>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="mascota.showLikes">
+                        <h1> Likes de {{mascota.name}}</h1>
+                        <h2>{{mascota.encadenarLike}}</h2>
+                        <h2>{{mascota.cantidadLike}}</h2>
+                    </div>
                 </td>
             </tr>
         </tbody>

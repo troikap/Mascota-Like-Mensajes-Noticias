@@ -37,6 +37,8 @@ export class NuevaMascotaComponent implements OnInit, IErrorController {
       description: "",
       image: "",
       cantidadLike: 0,
+      encadenarLike: "",
+      showLikes: false,
       imageBlob: {
         image: ""
       }

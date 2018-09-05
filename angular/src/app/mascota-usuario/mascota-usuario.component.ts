@@ -24,6 +24,8 @@ export class MascotaUsuarioComponent implements OnInit {
   like: Like;
   cantidadLike: Cantidad;
   rutaUsuario: String;
+  encadenarLike: String;
+  showLikes: boolean;
   private usuarioLogueado: Usuario;
 
   constructor(
@@ -39,6 +41,8 @@ export class MascotaUsuarioComponent implements OnInit {
                   description: "",
                   image: "",
                   cantidadLike: 0,
+                  encadenarLike: "",
+                  showLikes: false,
                   imageBlob: {
                     image: ""
                   }
@@ -66,7 +70,12 @@ export class MascotaUsuarioComponent implements OnInit {
                 .buscarLikePorMascota(mascota._id)
                 .then( result => {
                   // console.log("Esto es Lo que devuelve result: " + result.length + " o esto " + result);
-                  mascota.cantidadLike = result.length;                                                                          // error cambiar a buscarLikePorMAscota
+                  mascota.cantidadLike = result.length;                                                           // error cambiar a buscarLikePorMAscota
+                  mascota.encadenarLike = result.join(", ");
+                                    /*.forEach( individual => {
+                    mascota.encadenarLike = ;
+                    console.log("Estos son los usuarios que dieron like: " + mascota.encadenarLike);
+                  });*/
                 }
                 );
                 if (mascota.image) {
@@ -101,16 +110,22 @@ export class MascotaUsuarioComponent implements OnInit {
           .then(comentar => { this.router.navigate(["/muro-usuario/" + this.rutaUsuario]), this.ngOnInit(); });
           // .catch(error => errorHanlder.procesarValidacionesRest(this, error));
     }
-  // buscarLikePorMascota(mascota) {
-  //   console.log("ESTO ES MASCOTA: " + mascota);
-  //   this.MascotaUsuarioService
-  //     .buscarLikePorMascota(mascota._id)
-  //     .then(likes => {
-  //       likes.length;
-  //       console.log("ESTO lIKES: " + likes);
-  //       console.log( "TAMAÑO DEL LIKES: " + likes.length );
-  //     });
-  // }
+    mostrarLike( mascota ) {
+        this.MascotaUsuarioService
+          .buscarLikePorMascota( mascota._id )
+          .then(mostrar => {
+            mostrar.forEach( likeindividual => {
+              this.encadenarLike = this.encadenarLike + "-" + likeindividual.usuarioName;
+            });
+          });
+    }
+
+    showLike(mascota): void {
+      mascota.showLikes = true;
+    }
+    hidenLike(mascota): void {
+      mascota.showLikes = false;
+    }
 }
 
 export class LikeDTO {
